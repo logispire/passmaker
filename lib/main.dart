@@ -64,9 +64,10 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     precacheImage(AssetImage("images/Placeholder.png"), context);
-  } //todo remove this
+  }
+  //todo remove this
   TextEditingController textEditingController =
-      TextEditingController(text: "Your NAme");
+      TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   uploadImage() async {
@@ -357,28 +358,28 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.only(bottom: 200),
                 child: ElevatedButton(
                   onPressed: () async {
-                    // if (file1 == null) {
-                    //   Fluttertoast.showToast(
-                    //       msg: "Please Upload Profile Image",
-                    //       toastLength: Toast.LENGTH_LONG,
-                    //       gravity: ToastGravity.CENTER,
-                    //       timeInSecForIosWeb: 1,
-                    //       backgroundColor: Colors.red,
-                    //       textColor: Colors.white,
-                    //       fontSize: 16.0);
-                    //   return;
-                    // }
-                    // if (companyList == null) {
-                    //   Fluttertoast.showToast(
-                    //       msg: "Please Upload Company Logo",
-                    //       toastLength: Toast.LENGTH_LONG,
-                    //       gravity: ToastGravity.CENTER,
-                    //       timeInSecForIosWeb: 1,
-                    //       backgroundColor: Colors.red,
-                    //       textColor: Colors.white,
-                    //       fontSize: 16.0);
-                    //   return;
-                    // }
+                    if (file1 == null) {
+                      Fluttertoast.showToast(
+                          msg: "Please Upload Profile Image",
+                          toastLength: Toast.LENGTH_LONG,
+                          gravity: ToastGravity.CENTER,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.red,
+                          textColor: Colors.white,
+                          fontSize: 16.0);
+                      return;
+                    }
+                    if (companyList == null) {
+                      Fluttertoast.showToast(
+                          msg: "Please Upload Company Logo",
+                          toastLength: Toast.LENGTH_LONG,
+                          gravity: ToastGravity.CENTER,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.red,
+                          textColor: Colors.white,
+                          fontSize: 16.0);
+                      return;
+                    }
                     if (formKey.currentState!.validate()) {
 
                       // await compute(
