@@ -1,56 +1,56 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class MyTextFormField extends StatefulWidget {
-  late bool autoFocus;
-  late String? hintText;
-  late String? lable;
-  late TextInputType? keyboardType;
-  late int? maxLength;
-  late FocusNode? focusNode;
-  late EdgeInsetsGeometry? contentPadding;
-  late bool showEye;
-  late TextCapitalization? textCapitalization = TextCapitalization.sentences;
-  late FormFieldValidator<String>? validator;
-  late ValueChanged<String>? onChanged;
-  late ValueChanged<String>? onFieldSubmitted;
-  late TextEditingController? controller;
-  late TextInputAction? textInputAction;
-  late bool isPassword = false;
-  late bool readOnly = false;
-  bool? isEnableInteractiveSelection;
-  late bool isEnable = true;
-  late Widget? icon;
-  late int? maxLines;
-  late int? minLines;
-  List<TextInputFormatter>? inputFormatters;
+import 'constants.dart';
 
-  MyTextFormField(
+class MyTextFormField extends StatefulWidget {
+  final bool autoFocus;
+  final String hintText;
+  final String? label;
+  final TextInputType? keyboardType;
+  final int? maxLength;
+  final FocusNode? focusNode;
+  final EdgeInsetsGeometry? contentPadding;
+  final Widget? suffixIcon;
+  final TextCapitalization textCapitalization;
+  final FormFieldValidator<String>? validator;
+  final ValueChanged<String>? onChanged;
+  final ValueChanged<String>? onFieldSubmitted;
+  final TextEditingController? controller;
+  final TextInputAction? textInputAction;
+  final bool isPassword;
+  final bool readOnly;
+  final bool isEnableInteractiveSelection;
+  final bool isEnable;
+  final Widget? icon;
+  final int? maxLines;
+  final int? minLines;
+  final List<TextInputFormatter>? inputFormatters;
+
+  const MyTextFormField(
       {Key? key,
-        this.hintText,
-        this.keyboardType,
-        this.lable,
-        this.maxLength,
-        this.focusNode,
-        this.showEye = false,
-        this.textCapitalization,
-        this.validator,
-        this.onChanged,
-        this.onFieldSubmitted,
-        this.controller,
-        this.textInputAction,
-        this.isPassword = false,
-        this.readOnly = false,
-        this.isEnableInteractiveSelection,
-        this.icon,
-        this.maxLines,
-        this.minLines,
-        this.contentPadding,
-        this.inputFormatters,
-        this.isEnable = true,
-        this.autoFocus = false})
+      this.hintText = "",
+      this.keyboardType,
+      this.label,
+      this.maxLength,
+      this.focusNode,
+      this.suffixIcon,
+      this.textCapitalization = TextCapitalization.sentences,
+      this.validator,
+      this.onChanged,
+      this.onFieldSubmitted,
+      this.controller,
+      this.textInputAction,
+      this.isPassword = false,
+      this.readOnly = false,
+      this.isEnableInteractiveSelection = true,
+      this.icon,
+      this.maxLines,
+      this.minLines,
+      this.contentPadding,
+      this.inputFormatters,
+      this.isEnable = true,
+      this.autoFocus = false})
       : super(key: key);
 
   @override
@@ -58,33 +58,46 @@ class MyTextFormField extends StatefulWidget {
 }
 
 class _MyTextFormFieldState extends State<MyTextFormField> {
+  bool isPassword = false;
+
+  @override
+  void initState() {
+    super.initState();
+    isPassword = widget.isPassword;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (widget.lable != null)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 9.0, left: 4, right: 4),
-            child: Text("${widget.lable}",
+        widget.label == null
+            ? const SizedBox()
+            : Text(
+                widget.label!,
                 style: TextStyle(
-                    fontWeight: FontWeight.w600, fontSize: 12)),
-          ),
+                  fontSize: 13,
+                  color: appPrimaryColor,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+        const SizedBox(
+          height: 6,
+        ),
         TextFormField(
           autofocus: widget.autoFocus,
           enabled: widget.isEnable,
-          enableInteractiveSelection:
-          widget.isEnableInteractiveSelection ?? true,
+          enableInteractiveSelection: widget.isEnableInteractiveSelection,
           readOnly: widget.readOnly,
           controller: widget.controller,
-          textCapitalization:
-          widget.textCapitalization ?? TextCapitalization.sentences,
+          textCapitalization: widget.textCapitalization,
           keyboardType: widget.keyboardType,
-          style: const TextStyle(fontSize: 12),
+          style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
           maxLength: widget.maxLength,
-          maxLines: widget.maxLines ?? 1,
+          maxLines: widget.maxLines,
           minLines: widget.minLines,
           focusNode: widget.focusNode,
+          // textAlignVertical: TextAlignVertical.bottom,
           onChanged: widget.onChanged,
           validator: widget.validator,
           textInputAction: widget.textInputAction,
@@ -92,51 +105,48 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
           inputFormatters: widget.inputFormatters,
           onFieldSubmitted: widget.onFieldSubmitted,
           decoration: InputDecoration(
+            fillColor: Colors.white,
             filled: true,
-            // fillColor: white.withOpacity(0.8),
-            hintText: widget.hintText ?? "",
-            hintStyle: TextStyle(color: Colors.grey, fontSize: 11),
+            constraints: const BoxConstraints(minHeight: 40),
+            hintText: widget.hintText,
+            hintStyle: const TextStyle(fontSize: 12),
+            alignLabelWithHint: true,
             floatingLabelBehavior: FloatingLabelBehavior.never,
-            contentPadding: widget.contentPadding ??
-                const EdgeInsets.only(left: 20, right: 8, top: 20, bottom: 20),
             counterText: "",
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 14.0, horizontal: 12),
             errorStyle: TextStyle(
                 color: Colors.red.shade500,
                 fontWeight: FontWeight.w500,
                 fontSize: 12),
             prefixIcon: widget.icon,
-            errorMaxLines: 2,
+            suffixIcon: widget.suffixIcon,
+            errorMaxLines: 1,
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(7),
+                borderSide: const BorderSide(width: 0.5, color: Colors.grey)),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide: const BorderSide(
-                width: 0,
-                style: BorderStyle.none,
-              ),
+              borderRadius: BorderRadius.circular(7),
+              borderSide: const BorderSide(width: 0.5, color: Colors.grey),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15.0),
+              borderRadius: BorderRadius.circular(7),
+              borderSide: BorderSide(width: 1, color: appPrimaryColor),
             ),
             disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide: const BorderSide(
-                width: 0,
-                style: BorderStyle.none,
-              ),
+              borderRadius: BorderRadius.circular(7),
+              borderSide:
+                  BorderSide(width: 0.5, color: Colors.grey.withOpacity(0.2)),
             ),
             errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide: const BorderSide(
-                width: 0,
-                style: BorderStyle.none,
-              ),
+              borderRadius: BorderRadius.circular(7),
+              borderSide: const BorderSide(width: 0.5, color: Colors.red),
             ),
-
             focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(7),
               borderSide: const BorderSide(
-                width: 0,
+                width: 0.5,
                 color: Colors.red,
-                style: BorderStyle.none,
               ),
             ),
           ),

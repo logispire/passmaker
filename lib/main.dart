@@ -10,19 +10,19 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_cropper_for_web/image_cropper_for_web.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:passmaker/FunctionIconButton.dart';
 import 'package:passmaker/ImageBlock.dart';
 import 'package:passmaker/MyTextFormField.dart';
 import 'package:passmaker/helperFunction.dart';
 import 'package:printing/printing.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft])
       .then((_) {
-    runApp(new MyApp());
+    runApp(MyApp());
   });
   // runApp(const MyApp());
 }
@@ -35,9 +35,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+        fontFamily: 'Montserrat',
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Sankalap'),
+      home: const MyHomePage(title: 'SANKAP SE SAFALTA'),
     );
   }
 }
@@ -173,6 +174,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     var Size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Colors.grey.shade100,
       body: SizedBox(
         height: Size.height,
         width: 500,
@@ -196,7 +198,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ? Container(
                                       width: 100,
                                       height: 100,
-                                      color: Colors.amber)
+                                      decoration: const BoxDecoration(
+                                          image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: AssetImage(
+                                                  "images/Avtar.png"))),
+                                    )
                                   : Container(
                                       width: 100,
                                       height: 100,
@@ -220,12 +227,12 @@ class _MyHomePageState extends State<MyHomePage> {
                               child: Container(
                                 height: 30,
                                 alignment: Alignment.center,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                     // border: Border.all(width: 2)
                                     ),
                                 child: Text(
-                                  "${textEditingController.text.trim()}",
-                                  style: TextStyle(
+                                  textEditingController.text.trim(),
+                                  style: const TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -243,10 +250,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                       alignment: Alignment.center,
                                       width: 100,
                                       height: 100,
-                                      child: Text("Company logo here"),
+                                      child: const Text("Company logo here"),
                                     )
                                   : Container(
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                           // border: Border.all(width: 2,color: Colors.green)
                                           ),
                                       alignment: Alignment.center,
@@ -271,7 +278,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ? Container(
                                       width: 100,
                                       height: 100,
-                                      color: Colors.amber)
+                                      decoration: const BoxDecoration(
+                                          image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: AssetImage(
+                                                  "images/Avtar.png"))),
+                                    )
                                   : Container(
                                       width: 100,
                                       height: 100,
@@ -294,12 +306,12 @@ class _MyHomePageState extends State<MyHomePage> {
                               left: 265,
                               child: Container(
                                 alignment: Alignment.center,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                     // border: Border.all(width: 2)
                                     ),
                                 child: Text(
-                                  "${textEditingController.text.trim()}",
-                                  style: TextStyle(
+                                  textEditingController.text.trim(),
+                                  style: const TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -316,12 +328,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                       alignment: Alignment.center,
                                       width: 100,
                                       height: 100,
-                                      child: Text("Company logo here"),
+                                      child: const Text("Company logo here"),
                                     )
                                   : Container(
-                                      decoration: BoxDecoration(
-                                          // border: Border.all(width: 2,color: Colors.green)
-                                          ),
+                                      decoration: const BoxDecoration(),
                                       alignment: Alignment.center,
                                       width: 100,
                                       height: 100,
@@ -332,9 +342,14 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
               ),
+              const SizedBox(
+                height: 20,
+              ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding:
+                    const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
                 child: MyTextFormField(
+                  label: "Your Name",
                   controller: textEditingController,
                   hintText: "Enter your Name Here",
                   textInputAction: TextInputAction.done,
@@ -352,6 +367,29 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
               ),
+              Padding(
+                padding:
+                    const EdgeInsets.only(left: 20.0, right: 20.0, top: 10),
+                child: MyTextFormField(
+                  label: "Business Name",
+                  controller: textEditingController,
+                  hintText: "Enter Your Business Name",
+                  textInputAction: TextInputAction.done,
+                  keyboardType: TextInputType.name,
+                  maxLines: 1,
+                  maxLength: 20,
+                  onChanged: (value) {
+                    setState(() {});
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please Enter a name";
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              FunctionIconButton(),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
@@ -395,80 +433,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       return;
                     }
                     if (formKey.currentState!.validate()) {
-                      // await compute(
-                      //     await buildPdf(
-                      //       const PdfPageFormat(1080,1080),
-                      //     ),
-                      //     "Q");
-
-                      await screenshotController.capture()
-                          //     .captureFromWidget(
-                          //     Stack(
-                          //   children: [
-                          //     Positioned(
-                          //       top: calculate(72),
-                          //       left: calculate(311),
-                          //       height: calculate(175),
-                          //       width: calculate(138),
-                          //       child: file1 == null
-                          //           ? Container(color: Colors.amber)
-                          //           : SizedBox(
-                          //               width: 100,
-                          //               height: 100,
-                          //               child:
-                          //                   Image.memory(file1!, fit: BoxFit.cover),
-                          //             ),
-                          //     ),
-                          //     Image.asset(
-                          //       "images/Placeholder.png",
-                          //       width: 350,
-                          //       height: 350,
-                          //       fit: BoxFit.contain,
-                          //     ),
-                          //     Positioned(
-                          //       width: calculate(225),
-                          //       top: calculate(257),
-                          //       left: calculate(265),
-                          //       child: Container(
-                          //         alignment: Alignment.center,
-                          //         decoration: BoxDecoration(
-                          //             // border: Border.all(width: 2)
-                          //             ),
-                          //         child: Text(
-                          //           "${textEditingController.text.trim()}",
-                          //           style: TextStyle(
-                          //             fontSize: 20,
-                          //             fontWeight: FontWeight.bold,
-                          //           ),
-                          //         ),
-                          //       ),
-                          //     ),
-                          //     Positioned(
-                          //       top: calculate(300),
-                          //       left: calculate(290),
-                          //       height: calculate(70),
-                          //       width: calculate(180),
-                          //       child: companyList == null
-                          //           ? Container(
-                          //               alignment: Alignment.center,
-                          //               width: 100,
-                          //               height: 100,
-                          //               child: Text("Company logo here"),
-                          //             )
-                          //           : Container(
-                          //               decoration: BoxDecoration(
-                          //                   // border: Border.all(width: 2,color: Colors.green)
-                          //                   ),
-                          //               alignment: Alignment.center,
-                          //               width: 100,
-                          //               height: 100,
-                          //               child: Image.memory(companyList!),
-                          //             ),
-                          //     ),
-                          //   ],
-                          // )
-                          // )
-                          .then((value) {
+                      await screenshotController.capture().then((value) {
                         if (value == null) {
                           Fluttertoast.showToast(
                               msg: "Failed to generate Image",
@@ -488,7 +453,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       });
                     }
                   },
-                  child: Text("Download Image"),
+                  child: const Text("Download Image"),
                 ),
               ),
             ],
@@ -496,102 +461,5 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
-  }
-
-  Future buildPdf(PdfPageFormat format) async {
-    pw.Document pdf = pw.Document();
-    final montserrat = await PdfGoogleFonts.montserratSemiBold();
-
-    final ByteData couponGift = await rootBundle.load('images/Placeholder.png');
-    print(couponGift);
-    final Uint8List couponGiftByteList = couponGift.buffer.asUint8List();
-    // print(couponGiftByteList);
-
-    pdf.addPage(pw.Page(
-        theme: pw.ThemeData.withFont(
-            base: await PdfGoogleFonts.montserratSemiBold()),
-        build: (pw.Context context) {
-          return pw.SizedBox(
-            height: 1080,
-            width: 1080,
-            child: pw.Stack(
-              children: [
-                pw.Positioned(
-                  top: calculate(72),
-                  left: calculate(311),
-                  child: file1 == null
-                      ? pw.Container(
-                          height: 378,
-                          width: calculate(138),
-                          color: PdfColors.amber)
-                      : pw.Container(
-                          height: 378,
-                          width: calculate(138),
-                          child: pw.Image(pw.MemoryImage(file1!),
-                              fit: pw.BoxFit.cover),
-                        ),
-                ),
-                pw.Positioned(
-                  top: 0,
-                  left: 0,
-                  child: pw.Image(
-                    pw.MemoryImage(couponGiftByteList),
-                    width: 1080,
-                    height: 1080,
-                    // fit: pw.BoxFit.cover,
-                  ),
-                ),
-                pw.Positioned(
-                  top: calculate(257),
-                  left: calculate(265),
-                  child: pw.Container(
-                    width: calculate(225),
-                    alignment: pw.Alignment.center,
-                    decoration: pw.BoxDecoration(
-                        // border: Border.all(width: 2)
-                        ),
-                    child: pw.Text(
-                      "${textEditingController.text.trim()}",
-                      style: pw.TextStyle(
-                        fontSize: 40,
-                        fontWeight: pw.FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-                pw.Positioned(
-                  top: calculate(300),
-                  left: calculate(290),
-                  child: companyList == null
-                      ? pw.Container(
-                          height: calculate(70),
-                          width: calculate(180),
-                          alignment: pw.Alignment.center,
-                          child: pw.Text("Company logo here"),
-                        )
-                      : pw.Container(
-                          decoration: pw.BoxDecoration(
-                              // border: Border.all(width: 2,color: Colors.green)
-                              ),
-                          alignment: pw.Alignment.center,
-                          width: 100,
-                          height: 100,
-                          child: pw.Image(pw.MemoryImage(companyList!)),
-                        ),
-                ),
-              ],
-            ),
-          );
-        }));
-
-    final bytes = await pdf.save();
-    final blob = Blob([bytes], 'application/pdf');
-    final url = Url.createObjectUrlFromBlob(blob);
-    window.open(url, '_blank');
-    Url.revokeObjectUrl(url);
-    // setState(() {
-    //   isDownload = false;
-    // });
-    return (String foo) {};
   }
 }
