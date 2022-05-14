@@ -59,15 +59,14 @@ class _MyHomePageState extends State<MyHomePage> {
   Uint8List? companyList;
   ScreenshotController screenshotController = ScreenshotController();
 
-
   @override
   void initState() {
     super.initState();
-    precacheImage(AssetImage("images/Placeholder.png"), context);
+    // precacheImage(AssetImage("images/Placeholder.png"), context);
   }
+
   //todo remove this
-  TextEditingController textEditingController =
-      TextEditingController();
+  TextEditingController textEditingController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   uploadImage() async {
@@ -174,150 +173,165 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     var Size = MediaQuery.of(context).size;
     return Scaffold(
-      body: SingleChildScrollView(
+      body: SizedBox(
+        height: Size.height,
+        width: 500,
         child: Form(
           key: formKey,
-          child: Column(
+          child: ListView(
             children: [
-              MediaQuery.of(context).size.width < 500
-                  ? Stack(
-                      children: [
-                        Positioned(
-                          top: Size.width * 72 / 500,
-                          left: Size.width * 311 / 500,
-                          height: Size.width * 175 / 500,
-                          width: Size.width * 138 / 500,
-                          child: file1 == null
-                              ? Container(
-                                  width: 100, height: 100, color: Colors.amber)
-                              : Container(
-                                  width: 100,
-                                  height: 100,
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: MemoryImage(file1!))),
-                                ),
-                        ),
-                        Opacity(
-                          opacity: 1.0,
-                          child: Image.asset(
-                            "images/Placeholder.png",
-                            width: Size.width,
-                            height: Size.width,
-                          ),
-                        ),
-                        Positioned(
-                          width: Size.width * 225 / 500,
-                          top: Size.width * 257 / 500,
-                          left: Size.width * 265 / 500,
-                          child: Container(
-                            height: 30,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                // border: Border.all(width: 2)
-                                ),
-                            child: Text(
-                              "${textEditingController.text.trim()}",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              maxLines: 1,
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: MediaQuery.of(context).size.width < 500
+                    ? Screenshot(
+                        controller: screenshotController,
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              top: 72,
+                              left: 311,
+                              height: 175,
+                              width: 138,
+                              child: file1 == null
+                                  ? Container(
+                                      width: 100,
+                                      height: 100,
+                                      color: Colors.amber)
+                                  : Container(
+                                      width: 100,
+                                      height: 100,
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: MemoryImage(file1!))),
+                                    ),
                             ),
-                          ),
-                        ),
-                        Positioned(
-                          top: Size.width * 300 / 500,
-                          left: Size.width * 290 / 500,
-                          height: Size.width * 70 / 500,
-                          width: Size.width * 180 / 500,
-                          child: companyList == null
-                              ? Container(
-                                  alignment: Alignment.center,
-                                  width: 100,
-                                  height: 100,
-                                  child: Text("Company logo here"),
-                                )
-                              : Container(
-                                  decoration: BoxDecoration(
-                                      // border: Border.all(width: 2,color: Colors.green)
-                                      ),
-                                  alignment: Alignment.center,
-                                  width: 100,
-                                  height: 100,
-                                  child: Image.memory(companyList!),
-                                ),
-                        ),
-                      ],
-                    )
-                  : Stack(
-                      children: [
-                        Positioned(
-                          top: 72,
-                          left: 311,
-                          height: 175,
-                          width: 138,
-                          child: file1 == null
-                              ? Container(
-                                  width: 100, height: 100, color: Colors.amber)
-                              : Container(
-                                  width: 100,
-                                  height: 100,
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: MemoryImage(file1!))),
-                                ),
-                        ),
-                        Opacity(
-                          opacity: 1.0,
-                          child: Image.asset(
-                            "images/Placeholder.png",
-                            width: 500,
-                            height: 500,
-                          ),
-                        ),
-                        Positioned(
-                          width: 225,
-                          top: 257,
-                          left: 265,
-                          child: Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                // border: Border.all(width: 2)
-                                ),
-                            child: Text(
-                              "${textEditingController.text.trim()}",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                            Opacity(
+                              opacity: 1.0,
+                              child: Image.asset(
+                                "images/Placeholder.png",
+                                width: 500,
+                                height: 500,
                               ),
                             ),
-                          ),
-                        ),
-                        Positioned(
-                          top: 300,
-                          left: 290,
-                          height: 70,
-                          width: 180,
-                          child: companyList == null
-                              ? Container(
-                                  alignment: Alignment.center,
-                                  width: 100,
-                                  height: 100,
-                                  child: Text("Company logo here"),
-                                )
-                              : Container(
-                                  decoration: BoxDecoration(
-                                      // border: Border.all(width: 2,color: Colors.green)
-                                      ),
-                                  alignment: Alignment.center,
-                                  width: 100,
-                                  height: 100,
-                                  child: Image.memory(companyList!),
+                            Positioned(
+                              width: 225,
+                              top: 257,
+                              left: 265,
+                              child: Container(
+                                height: 30,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    // border: Border.all(width: 2)
+                                    ),
+                                child: Text(
+                                  "${textEditingController.text.trim()}",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  maxLines: 1,
                                 ),
+                              ),
+                            ),
+                            Positioned(
+                              top: 300,
+                              left: 290,
+                              height: 70,
+                              width: 180,
+                              child: companyList == null
+                                  ? Container(
+                                      alignment: Alignment.center,
+                                      width: 100,
+                                      height: 100,
+                                      child: Text("Company logo here"),
+                                    )
+                                  : Container(
+                                      decoration: BoxDecoration(
+                                          // border: Border.all(width: 2,color: Colors.green)
+                                          ),
+                                      alignment: Alignment.center,
+                                      width: 100,
+                                      height: 100,
+                                      child: Image.memory(companyList!),
+                                    ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      )
+                    : Screenshot(
+                        controller: screenshotController,
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              top: 72,
+                              left: 311,
+                              height: 175,
+                              width: 138,
+                              child: file1 == null
+                                  ? Container(
+                                      width: 100,
+                                      height: 100,
+                                      color: Colors.amber)
+                                  : Container(
+                                      width: 100,
+                                      height: 100,
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: MemoryImage(file1!))),
+                                    ),
+                            ),
+                            Opacity(
+                              opacity: 1.0,
+                              child: Image.asset(
+                                "images/Placeholder.png",
+                                width: 500,
+                                height: 500,
+                              ),
+                            ),
+                            Positioned(
+                              width: 225,
+                              top: 257,
+                              left: 265,
+                              child: Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    // border: Border.all(width: 2)
+                                    ),
+                                child: Text(
+                                  "${textEditingController.text.trim()}",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              top: 300,
+                              left: 290,
+                              height: 70,
+                              width: 180,
+                              child: companyList == null
+                                  ? Container(
+                                      alignment: Alignment.center,
+                                      width: 100,
+                                      height: 100,
+                                      child: Text("Company logo here"),
+                                    )
+                                  : Container(
+                                      decoration: BoxDecoration(
+                                          // border: Border.all(width: 2,color: Colors.green)
+                                          ),
+                                      alignment: Alignment.center,
+                                      width: 100,
+                                      height: 100,
+                                      child: Image.memory(companyList!),
+                                    ),
+                            ),
+                          ],
+                        ),
+                      ),
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: MyTextFormField(
@@ -381,78 +395,79 @@ class _MyHomePageState extends State<MyHomePage> {
                       return;
                     }
                     if (formKey.currentState!.validate()) {
-
                       // await compute(
                       //     await buildPdf(
                       //       const PdfPageFormat(1080,1080),
                       //     ),
                       //     "Q");
 
-                      await screenshotController
-                          .captureFromWidget(Stack(
-                        children: [
-                          Positioned(
-                            top: calculate(72),
-                            left: calculate(311),
-                            height: calculate(175),
-                            width: calculate(138),
-                            child: file1 == null
-                                ? Container(color: Colors.amber)
-                                : SizedBox(
-                                    width: 100,
-                                    height: 100,
-                                    child:
-                                        Image.memory(file1!, fit: BoxFit.cover),
-                                  ),
-                          ),
-                          Image.asset(
-                            "images/Placeholder.png",
-                            width: 350,
-                            height: 350,
-                            fit: BoxFit.contain,
-                          ),
-                          Positioned(
-                            width: calculate(225),
-                            top: calculate(257),
-                            left: calculate(265),
-                            child: Container(
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  // border: Border.all(width: 2)
-                                  ),
-                              child: Text(
-                                "${textEditingController.text.trim()}",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            top: calculate(300),
-                            left: calculate(290),
-                            height: calculate(70),
-                            width: calculate(180),
-                            child: companyList == null
-                                ? Container(
-                                    alignment: Alignment.center,
-                                    width: 100,
-                                    height: 100,
-                                    child: Text("Company logo here"),
-                                  )
-                                : Container(
-                                    decoration: BoxDecoration(
-                                        // border: Border.all(width: 2,color: Colors.green)
-                                        ),
-                                    alignment: Alignment.center,
-                                    width: 100,
-                                    height: 100,
-                                    child: Image.memory(companyList!),
-                                  ),
-                          ),
-                        ],
-                      ))
+                      await screenshotController.capture()
+                          //     .captureFromWidget(
+                          //     Stack(
+                          //   children: [
+                          //     Positioned(
+                          //       top: calculate(72),
+                          //       left: calculate(311),
+                          //       height: calculate(175),
+                          //       width: calculate(138),
+                          //       child: file1 == null
+                          //           ? Container(color: Colors.amber)
+                          //           : SizedBox(
+                          //               width: 100,
+                          //               height: 100,
+                          //               child:
+                          //                   Image.memory(file1!, fit: BoxFit.cover),
+                          //             ),
+                          //     ),
+                          //     Image.asset(
+                          //       "images/Placeholder.png",
+                          //       width: 350,
+                          //       height: 350,
+                          //       fit: BoxFit.contain,
+                          //     ),
+                          //     Positioned(
+                          //       width: calculate(225),
+                          //       top: calculate(257),
+                          //       left: calculate(265),
+                          //       child: Container(
+                          //         alignment: Alignment.center,
+                          //         decoration: BoxDecoration(
+                          //             // border: Border.all(width: 2)
+                          //             ),
+                          //         child: Text(
+                          //           "${textEditingController.text.trim()}",
+                          //           style: TextStyle(
+                          //             fontSize: 20,
+                          //             fontWeight: FontWeight.bold,
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //     Positioned(
+                          //       top: calculate(300),
+                          //       left: calculate(290),
+                          //       height: calculate(70),
+                          //       width: calculate(180),
+                          //       child: companyList == null
+                          //           ? Container(
+                          //               alignment: Alignment.center,
+                          //               width: 100,
+                          //               height: 100,
+                          //               child: Text("Company logo here"),
+                          //             )
+                          //           : Container(
+                          //               decoration: BoxDecoration(
+                          //                   // border: Border.all(width: 2,color: Colors.green)
+                          //                   ),
+                          //               alignment: Alignment.center,
+                          //               width: 100,
+                          //               height: 100,
+                          //               child: Image.memory(companyList!),
+                          //             ),
+                          //     ),
+                          //   ],
+                          // )
+                          // )
                           .then((value) {
                         if (value == null) {
                           Fluttertoast.showToast(
@@ -464,7 +479,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               textColor: Colors.white,
                               fontSize: 16.0);
                         }
-                        final base64data = base64Encode(value.toList());
+                        final base64data = base64Encode(value!.toList());
                         final a = html.AnchorElement(
                             href: 'data:image/jpeg;base64,$base64data');
                         a.download = 'download.jpg';
@@ -516,8 +531,8 @@ class _MyHomePageState extends State<MyHomePage> {
                               fit: pw.BoxFit.cover),
                         ),
                 ),
-          pw.Positioned(
-            top: 0,
+                pw.Positioned(
+                  top: 0,
                   left: 0,
                   child: pw.Image(
                     pw.MemoryImage(couponGiftByteList),
