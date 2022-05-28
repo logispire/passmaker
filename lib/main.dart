@@ -16,11 +16,13 @@ import 'package:passmaker/FunctionIconButton.dart';
 import 'package:passmaker/MyTextFormField.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 import 'constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  setPathUrlStrategy();
   SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft])
       .then((_) {
     runApp(const MyApp());
@@ -232,6 +234,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           right: 48,
                           height: 20,
                           child: Container(
+                            padding: EdgeInsets.only(right: 4,left: 4),
                             alignment: Alignment.center,
                             decoration: const BoxDecoration(
                                 // border: Border.all(width: 2)
@@ -239,7 +242,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: AutoSizeText(
                               textEditingController.text.trim(),
                               style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                   color: appPrimaryColor),
                               minFontSize: 3,
@@ -303,7 +306,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     textInputAction: TextInputAction.done,
                     keyboardType: TextInputType.name,
                     maxLines: 1,
-                    maxLength: 20,
+                    maxLength: 21,
                     onChanged: (value) {
                       setState(() {});
                     },
@@ -399,7 +402,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 20,top: 5),
                           child: Text(
-                            "Mobile Application Development, Website Development\nGraphic Design, Webbased CRM",
+                            "Mobile Application Development, Website Development\nGraphic Design, Web-based CRM",
                             style:
                                 TextStyle(fontSize: 9, color: Color(0xff00285b),),
                             textAlign: TextAlign.center,

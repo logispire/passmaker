@@ -145,10 +145,10 @@ class _ImageBlockState extends State<ImageBlock> {
                 left: 265,
                 child: Container(
                   alignment: Alignment.center,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     // border: Border.all(width: 2)
                   ),
-                  child: Text("${textEditingController.text.trim()}",style: TextStyle(
+                  child: Text("${textEditingController.text.trim()}",style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),),
@@ -160,7 +160,7 @@ class _ImageBlockState extends State<ImageBlock> {
                 height: 70,
                 width: 70,
                 child: companyList == null
-                    ? Container(alignment: Alignment.center,width: 100, height: 100, child: Text("Company logo here"),)
+                    ? Container(alignment: Alignment.center,width: 100, height: 100, child: const Text("Company logo here"),)
                     : Container(
                   width: 100,
                   height: 100,
